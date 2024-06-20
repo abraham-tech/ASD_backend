@@ -10,6 +10,10 @@ import miu.edu.springsecuritydemo.repository.ProductRepository;
 import miu.edu.springsecuritydemo.service.ProductService;
 import miu.edu.springsecuritydemo.user.User;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -30,8 +34,12 @@ public class ProductServiceImpl implements ProductService {
     private final ModelMapper modelMapper;
 
     @Override
-    public List<ProductResponseDTO> getProducts() {
-        List<Product> products = productRepository.findAll();
+    public List<ProductResponseDTO> getProducts(Integer pageNumber, Integer pageSize, String direction, String orderBy) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), orderBy);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+        Page<Product> products = productRepository.findAll(pageable);
+
+//        List<Product> products = productRepository.findAll();
         return products.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());

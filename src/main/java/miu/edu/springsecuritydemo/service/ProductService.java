@@ -9,7 +9,7 @@ import miu.edu.springsecuritydemo.user.User;
 import java.util.List;
 
 public interface ProductService {
-    List<ProductResponseDTO> getProducts();
+    List<ProductResponseDTO> getProducts(Integer pageNumber, Integer pageSize, String direction, String orderBy);
 
     List<ProductResponseDTO> findByNameContainingIgnoreCase(String keyword);
 

@@ -25,12 +25,21 @@ public class ProductController extends BaseController  {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<?> getAllProducts(@RequestParam(value = "search", required = false) String search) {
+    public ResponseEntity<?> getAllProducts(
+            @RequestParam(value = "search", required = false) String search,
+            @RequestParam(required = false) Integer pageNumber,
+            @RequestParam(required = false) Integer pageSize,
+            @RequestParam(required = false) String direction,
+            @RequestParam(required = false) String orderBy
+    ) {
         try {
             List<ProductResponseDTO> products;
-            if(search == null || search.isEmpty()) {
-                products = productService.getProducts();
-            }else {
+            if ((direction == null || orderBy == null) & search == null) {
+                products = productService.getProducts(0, 10000, "asc", "name");
+            }
+            else if(search == null || search.isEmpty() & (direction != null || orderBy != null)) {
+                products = productService.getProducts(pageNumber, pageSize, direction, orderBy);
+            }  else {
                 products = productService.findByNameContainingIgnoreCase(search);
             }
             return getResponse(SUCCESS, products, HttpStatus.OK);
