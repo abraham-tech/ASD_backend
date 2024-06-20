@@ -46,5 +46,5 @@ jobs:
         run: gcloud run deploy your-spring-boot-app \
           --image gcr.io/${{ secrets.GCP_PROJECT }}/your-spring-boot-app \
           --platform managed \
-          --region us-central1 \
+          --region ${{ secrets.GCP_REGION }} \
           --allow-unauthenticated
