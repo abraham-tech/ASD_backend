@@ -12,5 +12,6 @@ public class DashboardResponseDTO {
         this.totalNumberOfProduct = totalNumberOfProduct;
         this.balance = balance;
         this.type = type;
+
     }
 }
