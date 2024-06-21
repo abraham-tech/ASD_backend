@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>miu.edu</groupId>
-    <artifactId>springSecurityDemo</artifactId>
+    <artifactId>ADS_backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>springSecurityDemo</name>
     <description>springSecurityDemo</description>
